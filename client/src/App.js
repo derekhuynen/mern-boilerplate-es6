@@ -8,6 +8,8 @@ export default function App() {
     //State Array for Users from DataBase
     const [users, setUsers] = useState(null)
 
+    const serverAddress = "http://localhost:" + process.env.REACT_APP_SERVER_PORT;
+
     //Runs Once on Load to get Users
     useEffect(() => {
         getUsers()
@@ -15,7 +17,7 @@ export default function App() {
 
     //Get Request to retrieve Users in Database
     function getUsers(){
-        fetch( "http://localhost:3001/users")
+        fetch( serverAddress + "/users")
             .then(res =>
                 res.json()
             ).then(data =>
@@ -43,7 +45,7 @@ export default function App() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({...inputs})
         };
-        fetch('http://localhost:3001/users', requestOptions)
+        fetch(serverAddress + "/users", requestOptions)
             .then(response =>
                 response.json()
             )
@@ -56,7 +58,8 @@ export default function App() {
     //   1. Send A Delete Request with user id
     //   2. Calls getUsers to get Updated list of Users
     const onClick = (user) =>{
-        fetch('http://localhost:3001/users/' + user._id, { method: 'DELETE' })
+        fetch(serverAddress + user._id,
+            { method: 'DELETE' })
             .then(()=> getUsers())
     }
 
@@ -64,6 +67,7 @@ export default function App() {
         <>
         <form onSubmit={handleSubmit}>
             <div>
+
                 <label>First Name:</label>
                 <input
                     type="text"

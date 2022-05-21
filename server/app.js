@@ -10,7 +10,7 @@ import mongoose from 'mongoose'
 const app = express();
 
 //Set Port
-const port = process.env.PORT || '3001';
+const port = process.env.SERVER_PORT || '3001';
 
 //Set Middleware
 app.use(logger('dev'));
@@ -22,8 +22,8 @@ app.use(cors());
 //Set Routes
 Routes(app);
 
-//connect to DataBase
-const url = process.env.CONNECTION_STRING || "mongodb://localhost:27017";
+//Connect to DataBase **Need to Set CONNECTION_STRING in .env**
+const url = process.env.CONNECTION_STRING;
 await mongoose.connect(url)
     .then(() => {
         console.log("Connected to Database.")

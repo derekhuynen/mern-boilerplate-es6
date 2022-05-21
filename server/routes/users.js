@@ -4,13 +4,8 @@ import bodyParser from "body-parser";
 const router = express.Router();
 const jsonParser = bodyParser.json()
 
-/* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
 
-
-//Basic CRUD
+//Basic CRUD Operations for endpoint '/users'
 router.get('/', UserController.findAll);
 router.get('/:id', UserController.findOne);
 router.post('/', jsonParser, UserController.createOne);
